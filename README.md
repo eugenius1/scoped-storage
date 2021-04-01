@@ -1,14 +1,15 @@
 # ScopedStorage: localStorage & sessionStorage per page
 
-A simple wrapper around localStorage and sessionStorage that mimics **storage per scope** such as a single web page.
+A simple wrapper around [localStorage and sessionStorage](https://developer.mozilla.org/en-US/docs/Web/API/Storage)
+that mimics **storage per scope** such as a single web page.
 This is done via a key prefix that is passed when constructing a ScopedStorage.
 
 Value **types are preserved** by default (unlike localStorage and sessionStorage).
 
-No key prefix (`scope`) can be a substring of another key prefix so generally URLs should not be used as-is;
+No key prefix (`scope`) can be a substring of another key prefix so generally URL paths should not be used as-is;
 for example, clearing the ScopedStorage of `/project/` will also clear that of `/project/foo/`
 (unless this is what you would like).
-If the current URL is `/project/foo/`, you could use key prefix `project-foo/`
+If the current path is `/project/foo/`, you could use key prefix `project-foo/`
 (i.e. remove any leading or trailing `/`, replace each remaining `/` with `-` and end with a `/`).
 
 ```js
@@ -21,7 +22,8 @@ var lastingStorage = new ScopedStorage('project-bar/', StorageTypes.LOCAL_STORAG
 // For a behaviour that only returns string values (like localStorage and sessionStorage)
 var allStringValueStorage = new ScopedStorage('project-bar/', StorageTypes.SESSION_STORAGE, true);
 
-/* use the object the same way you would with localStorage or sessionStorage with these methods:
+/*
+Use the object the same way you would with localStorage or sessionStorage with these methods:
 setItem, getItem, removeItem, clear
 */
 
